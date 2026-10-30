@@ -1,0 +1,10 @@
+# Markdown documentation
+*.md
+
+# Documentation directories
+docs/
+
+# Local build and IDE output
+/build/
+/out/
+/.vs/
