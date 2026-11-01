@@ -1,38 +1,160 @@
 <!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101a30">
-  <title>VMaaS — виртуальные машины</title>
-  <link rel="stylesheet" href="/styles.css">
-  <link rel="stylesheet" href="/auth.css">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101a30" />
+    <title>VMaaS — виртуальные машины</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/auth.css" />
 </head>
 <body>
-  <div class="shell">
-    <aside class="sidebar">
-      <a class="brand" href="#overview"><span class="brand-mark">V</span><span>cloud<span class="brand-light">desk</span><small>VMaaS CONTROL PANEL</small></span></a>
-      <div class="nav-label">РАБОЧАЯ ОБЛАСТЬ</div>
-      <nav><a class="nav-link active" href="#overview"><span>▦</span> Обзор</a><a class="nav-link" href="#create"><span>＋</span> Создать VM</a><a class="nav-link" href="#orders"><span>▤</span> Мои заказы</a></nav>
-      <div class="sidebar-bottom"><span class="online-dot"></span> Демо-среда активна <small>Mock-провайдер</small></div>
-    </aside>
-    <main>
-      <header class="topbar"><div><span class="crumb">Рабочая область</span><strong> / Обзор</strong></div><div class="profile"><span class="avatar">DU</span><span><b id="profile-name">Demo User</b><small id="profile-email">Пользователь проекта</small></span><button id="logout" class="logout">Выйти</button></div></header>
-      <div class="content">
-        <section id="overview" class="hero"><div><div class="eyebrow"><span class="online-dot"></span> ОБЛАЧНАЯ ПЛАТФОРМА</div><h1>Виртуальные машины<br><span>под вашим контролем.</span></h1><p>Заказывайте ресурсы и следите за развертыванием в одном месте.</p><a class="button primary" href="#create">＋&nbsp; Создать виртуальную машину</a></div><div class="hero-art"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="server-card"><span class="server-top"><i></i><i></i><i></i><b>VM INSTANCE</b></span><span class="server-line long"></span><span class="server-line"></span><span class="server-line short"></span><span class="server-state"><i></i> SYSTEM READY</span></div><span class="art-chip">⌁ &nbsp; Compute cloud</span></div></section>
-        <section class="stats"><article class="stat-card"><span class="stat-icon purple">▣</span><span class="stat-title">Всего заказов</span><strong id="stat-total">—</strong><small>в вашей рабочей области</small></article><article class="stat-card"><span class="stat-icon green">◉</span><span class="stat-title">Активные VM</span><strong id="stat-ready">—</strong><small>готовы к использованию</small></article><article class="stat-card"><span class="stat-icon orange">◷</span><span class="stat-title">В обработке</span><strong id="stat-pending">—</strong><small>ожидают развертывания</small></article><article class="stat-card"><span class="stat-icon blue">⌘</span><span class="stat-title">Конфигурации</span><strong id="stat-flavors">5</strong><small>доступны в каталоге</small></article></section>
-        <section id="create" class="panel create-panel"><div class="section-heading"><div><div class="eyebrow">НОВЫЙ РЕСУРС</div><h2>Создать виртуальную машину</h2><p>Выберите проект, образ системы и конфигурацию ресурсов.</p></div><span class="step-pill"><span>1</span> ПАРАМЕТРЫ VM</span></div>
-          <form id="order-form"><div class="form-grid"><label>Название VM<input id="vm-name" required maxlength="63" placeholder="например, web-server-01"></label><label>Проект<select id="project" required></select></label><label>Образ операционной системы<select id="image" required></select></label><label>Конфигурация<select id="flavor" required></select></label></div>
-            <div id="flavor-preview" class="flavor-preview"></div><div class="form-bottom"><span class="secure-note">⌑ &nbsp; Ресурсы будут выделены после проверки квот</span><button id="submit-order" class="button primary" type="submit">Заказать VM <span>→</span></button></div></form><div id="form-message" class="message" hidden></div>
-        </section>
-        <section id="orders" class="panel orders-panel"><div class="section-heading"><div><div class="eyebrow">МОИ РЕСУРСЫ</div><h2>Последние заказы</h2><p>Состояние обновляется автоматически каждые 3 секунды.</p></div><button id="refresh" class="button secondary">↻ &nbsp; Обновить</button></div><div class="table-wrap"><table><thead><tr><th>ВИРТУАЛЬНАЯ МАШИНА</th><th>КОНФИГУРАЦИЯ</th><th>ОБРАЗ</th><th>СОСТОЯНИЕ</th><th>СОЗДАНА</th><th></th></tr></thead><tbody id="orders-body"><tr><td colspan="6" class="empty">Загружаем заказы…</td></tr></tbody></table></div></section>
-        <footer>VMaaS · учебный прототип <span>Провайдер виртуализации эмулируется</span></footer>
-      </div>
-    </main>
-  </div>
-  <div id="auth-screen" class="auth-screen"><form id="auth-form" class="auth-card"><div class="brand auth-brand"><span class="brand-mark">V</span><span>cloud<span class="brand-light">desk</span><small>VMaaS CONTROL PANEL</small></span></div><div class="eyebrow" id="auth-eyebrow">ДОБРО ПОЖАЛОВАТЬ</div><h1 id="auth-title">Войдите в VMaaS</h1><p id="auth-copy">Войдите, чтобы управлять проектами и виртуальными машинами.</p><label id="display-wrap" hidden>Имя<input id="display-name" autocomplete="name" maxlength="120" placeholder="Ваше имя"></label><label>Email<input id="auth-email" type="email" autocomplete="username" required maxlength="254" value="demo@example.local"></label><label>Пароль<input id="auth-password" type="password" autocomplete="current-password" required minlength="8" value="Demo1234!"></label><div id="auth-message" class="auth-message" hidden></div><button id="auth-submit" class="button primary auth-submit" type="submit">Войти <span>→</span></button><button id="auth-toggle" class="auth-toggle" type="button">Создать аккаунт</button><div class="demo-hint">Демо-доступ: demo@example.local / Demo1234!</div></form></div>
-  <dialog id="order-dialog"><button class="dialog-close" aria-label="Закрыть">×</button><div id="order-details"></div></dialog>
-  <div id="toast" class="toast" role="status"></div>
-  <script src="/app.js" defer></script>
+    <div class="shell">
+        <aside class="sidebar">
+            <a class="brand" href="#overview">
+                <span class="brand-mark">V</span><span>cloud<span class="brand-light">desk</span><small>VMaaS CONTROL PANEL</small></span>
+            </a>
+            <div class="nav-label">РАБОЧАЯ ОБЛАСТЬ</div>
+            <nav>
+                <a class="nav-link active" href="#overview"><span>▦</span> Обзор</a><a class="nav-link" href="#create"><span>＋</span> Создать VM</a><a class="nav-link" href="#orders"><span>▤</span> Мои заказы</a>
+            </nav>
+            <div class="sidebar-bottom">
+                <span class="online-dot"></span> Среда активна
+                <small id="provider-mode"></small>
+            </div>
+        </aside>
+        <main>
+            <header class="topbar">
+                <div><span class="crumb">Рабочая область</span><strong> / Обзор</strong></div>
+                <div class="profile">
+                    <span class="avatar">DU</span><span>
+                        <b id="profile-name">Demo User</b><small id="profile-email">Пользователь проекта</small>
+                    </span><button id="logout" class="logout">Выйти</button>
+                </div>
+            </header>
+            <div class="content">
+                <section id="overview" class="hero">
+                    <div>
+                        <div class="eyebrow"><span class="online-dot"></span> ОБЛАЧНАЯ ПЛАТФОРМА</div>
+                        <h1>Виртуальные машины<br /><span>под вашим контролем.</span></h1>
+                        <p>Заказывайте ресурсы и следите за развертыванием в одном месте.</p>
+                        <a class="button primary" href="#create">＋&nbsp; Создать виртуальную машину</a>
+                    </div>
+                    <div class="hero-art">
+                        <div class="orbit orbit-one"></div>
+                        <div class="orbit orbit-two"></div>
+                        <div class="server-card">
+                            <span class="server-top"><i></i><i></i><i></i><b>VM INSTANCE</b></span><span class="server-line long"></span><span class="server-line"></span><span class="server-line short"></span><span class="server-state"><i></i> SYSTEM READY</span>
+                        </div>
+                        <span class="art-chip">⌁ &nbsp; Compute cloud</span>
+                    </div>
+                </section>
+                <section class="stats">
+                    <article class="stat-card">
+                        <span class="stat-icon purple">▣</span><span class="stat-title">Всего заказов</span><strong id="stat-total">—</strong><small>в вашей рабочей области</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon green">◉</span><span class="stat-title">Активные VM</span><strong id="stat-ready">—</strong><small>готовы к использованию</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon orange">◷</span><span class="stat-title">В обработке</span><strong id="stat-pending">—</strong><small>ожидают развертывания</small>
+                    </article>
+                    <article class="stat-card">
+                        <span class="stat-icon blue">⌘</span><span class="stat-title">Конфигурации</span><strong id="stat-flavors">5</strong><small>доступны в каталоге</small>
+                    </article>
+                </section>
+                <section id="create" class="panel create-panel">
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">НОВЫЙ РЕСУРС</div>
+                            <h2>Создать виртуальную машину</h2>
+                            <p>Выберите проект, образ системы и конфигурацию ресурсов.</p>
+                        </div>
+                        <span class="step-pill"><span>1</span> ПАРАМЕТРЫ VM</span>
+                    </div>
+                    <form id="order-form">
+                        <div class="form-grid">
+                            <label> Название VM<input id="vm-name" required maxlength="63"placeholder="например, web-server-01" /></label>
+                            <label> Проект<select id="project" required></select></label>
+                            <label> Образ операционной системы<select id="image" required></select></label>
+                            <label> Конфигурация <select id="flavor" required></select> </label>
+                        </div>
+                        <div id="flavor-preview" class="flavor-preview"></div>
+                        <div class="form-bottom">
+                            <span class="secure-note">⌑ &nbsp; Ресурсы будут выделены после проверки квот</span>
+                            <button id="submit-order" class="button primary" type="submit"> Заказать VM</button>
+                        </div>
+                    </form>
+                    <div id="form-message" class="message" hidden></div>
+                </section>
+                <section id="orders" class="panel orders-panel">
+                    <div class="section-heading">
+                        <div>
+                            <div class="eyebrow">МОИ РЕСУРСЫ</div>
+                            <h2>Последние заказы</h2>
+                            <p>Состояние обновляется автоматически каждые 3 секунды.</p>
+                        </div>
+                        <button id="refresh" class="button secondary">↻ &nbsp; Обновить</button>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ВИРТУАЛЬНАЯ МАШИНА</th>
+                                    <th>КОНФИГУРАЦИЯ</th>
+                                    <th>ОБРАЗ</th>
+                                    <th>СОСТОЯНИЕ</th>
+                                    <th>СОЗДАНА</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="orders-body">
+                                <tr>
+                                    <td colspan="6" class="empty">Загружаем заказы…</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+                <footer></footer>
+            </div>
+        </main>
+    </div>
+    <div id="auth-screen" class="auth-screen">
+        <form id="auth-form" class="auth-card">
+            <div class="brand auth-brand">
+                <span class="brand-mark">V</span><span>cloud<span class="brand-light">desk</span><small>VMaaS CONTROL PANEL</small></span>
+            </div>
+            <div class="eyebrow" id="auth-eyebrow">ДОБРО ПОЖАЛОВАТЬ</div>
+            <h1 id="auth-title">Войдите в VMaaS</h1>
+            <p id="auth-copy">Войдите, чтобы управлять проектами и виртуальными машинами.</p>
+            <label id="display-wrap" hidden>Имя<input id="display-name" autocomplete="name" maxlength="120" placeholder="Ваше имя" /></label><label>
+                Email<input id="auth-email"
+                            type="email"
+                            autocomplete="username"
+                            required
+                            maxlength="254"
+                            value="demo@example.local" />
+            </label><label>
+                Пароль<input id="auth-password"
+                             type="password"
+                             autocomplete="current-password"
+                             required
+                             minlength="8"
+                             value="Demo1234!" />
+            </label>
+            <div id="auth-message" class="auth-message" hidden></div>
+            <button id="auth-submit" class="button primary auth-submit" type="submit">
+                Войти <span>→</span>
+            </button><button id="auth-toggle" class="auth-toggle" type="button">Создать аккаунт</button>
+            <div class="demo-hint">Демо-доступ: demo@example.local / Demo1234!</div>
+        </form>
+    </div>
+    <dialog id="order-dialog">
+        <button class="dialog-close" aria-label="Закрыть">×</button>
+        <div id="order-details"></div>
+    </dialog>
+    <div id="toast" class="toast" role="status"></div>
+    <script src="/app.js" defer></script>
 </body>
 </html>

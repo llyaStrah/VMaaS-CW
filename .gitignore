@@ -4,6 +4,11 @@
 # Documentation directories
 docs/
 
+# Local deployment settings can contain provider credentials
+.env
+.env.*
+!.env.example
+
 # Local build and IDE output
 /build/
 /out/

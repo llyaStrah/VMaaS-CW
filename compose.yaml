@@ -47,15 +47,13 @@ services:
       dockerfile: Dockerfile
     environment:
       DATABASE_URL: postgresql://vmaas:vmaas_dev_password@postgres:5432/vmaas
-      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      COMPUTE_PROVIDER: ${COMPUTE_PROVIDER:-mock}
       PORT: 8080
     ports:
       - "8080:8080"
       - "3000:8080"
     depends_on:
       postgres:
-        condition: service_healthy
-      kafka:
         condition: service_healthy
 
   worker:
@@ -66,6 +64,25 @@ services:
     environment:
       DATABASE_URL: postgresql://vmaas:vmaas_dev_password@postgres:5432/vmaas
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      COMPUTE_PROVIDER: ${COMPUTE_PROVIDER:-mock}
+      PROVISIONING_TIMEOUT_SECONDS: ${PROVISIONING_TIMEOUT_SECONDS:-180}
+      OPENSTACK_AUTH_URL: ${OPENSTACK_AUTH_URL:-}
+      OPENSTACK_USERNAME: ${OPENSTACK_USERNAME:-}
+      OPENSTACK_PASSWORD: ${OPENSTACK_PASSWORD:-}
+      OPENSTACK_USER_DOMAIN: ${OPENSTACK_USER_DOMAIN:-Default}
+      OPENSTACK_PROJECT_NAME: ${OPENSTACK_PROJECT_NAME:-}
+      OPENSTACK_PROJECT_ID: ${OPENSTACK_PROJECT_ID:-}
+      OPENSTACK_PROJECT_DOMAIN: ${OPENSTACK_PROJECT_DOMAIN:-Default}
+      OPENSTACK_REGION: ${OPENSTACK_REGION:-RegionOne}
+      OPENSTACK_INTERFACE: ${OPENSTACK_INTERFACE:-public}
+      OPENSTACK_NETWORK_ID: ${OPENSTACK_NETWORK_ID:-}
+      OPENSTACK_IMAGE_ID: ${OPENSTACK_IMAGE_ID:-}
+      OPENSTACK_KEY_NAME: ${OPENSTACK_KEY_NAME:-}
+      OPENSTACK_FLAVOR_ID_SMALL: ${OPENSTACK_FLAVOR_ID_SMALL:-}
+      OPENSTACK_FLAVOR_ID_MEDIUM: ${OPENSTACK_FLAVOR_ID_MEDIUM:-}
+      OPENSTACK_FLAVOR_ID_LARGE: ${OPENSTACK_FLAVOR_ID_LARGE:-}
+      OPENSTACK_FLAVOR_ID_COMPUTE: ${OPENSTACK_FLAVOR_ID_COMPUTE:-}
+      OPENSTACK_FLAVOR_ID_MEMORY: ${OPENSTACK_FLAVOR_ID_MEMORY:-}
     depends_on:
       postgres:
         condition: service_healthy

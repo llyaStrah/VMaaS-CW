@@ -3,7 +3,12 @@
 #include "vmaas/domain/order.hpp"
 
 namespace vmaas::ports {
-struct CreateVmRequest { std::string name, image_provider_id, flavor_name; };
+struct CreateVmRequest {
+    std::string order_id;
+    std::string name;
+    std::string image_provider_id;
+    std::string flavor_name;
+};
 struct VmInfo { std::string provider_id, state, private_ip; };
 
 class ComputeProvider {
